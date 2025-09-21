@@ -4,9 +4,12 @@
     <title>Blog</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
     <link href="style.css" rel="stylesheet" />
   </head>
   <body>
@@ -30,49 +33,70 @@
       </div>
     </header>
     <main>
-      <section>
+      <section class="blog-section">
         <div class="container">
-          <h1>Latest Articles</h1>
-          <article>
-            <img src="images/offs.png" alt="Blog post image about html5">
-            <h2>Mastering the New Features of HTML5</h2>
-            <div>
-              By Jane Doe | Aug 09, 2025
-            </div>
-            <p>HTML5 introduced powerful new elements like `<article>`, `<section>`, and `<nav>`. Let's dive into how to use them to create more semantic and accessible web pages. </p>
-              <a href="#">Read More</a>
-          </article>
-          <article>
-            <img src="images/forest.webp" alt="Blog post image about html5">
-            <h2>Advanced CSS3: Flexbox vs. Grid</h2>
-            <div>
-              By John Smith | Aug 05, 2025
-            </div>
-            <p>Struggling with layouts? This guide breaks down the differences between CSS Flexbox and Grid, helping you decide which one is right for your next project.  </p>
-              <a href="#">Read More</a>
-          </article>
-          <article>
-            <img src="images/sun.jpg" alt="Blog post image about html5">
-            <h2>A Beginner's Guide to JavaScript Events</h2>
-            <div>
-              By Emily White | Jul 28, 2025
-            </div>
-            <p>Learn how to make your web pages interactive with JavaScript event listeners. We'll cover clicks, keyboard events, and more with easy-to-follow examples.  </p>
-              <a href="#">Read More</a>
-          </article>
+          <h1 class="section-title">Latest Articles</h1>
+          <div class="blog-grid">
+            <article class="blog-card">
+              <img src="images/offs.png" alt="Blog post image about html5" />
+              <div class="blog-card-content">
+                <h2>Mastering the New Features of HTML5</h2>
+                <div class="blog-meta">By Jane Doe | Aug 09, 2025</div>
+                <p>
+                  HTML5 introduced powerful new elements like `&lt;article&gt;`,
+                  `&lt;section&gt;`, and `&lt;nav&gt;`. Let's dive into how to
+                  use them to create more semantic and accessible web pages.
+                </p>
+                <a href="#" class="read-more-btn">Read More</a>
+              </div>
+            </article>
+            <article class="blog-card">
+              <img src="images/forest.webp" alt="Blog post image about html5" />
+              <div class="blog-card-content">
+                <h2>Advanced CSS3: Flexbox vs. Grid</h2>
+                <div class="blog-meta">By John Smith | Aug 05, 2025</div>
+                <p>
+                  Struggling with layouts? This guide breaks down the
+                  differences between CSS Flexbox and Grid, helping you decide
+                  which one is right for your next project. This guide breaks
+                  down the differences between CSS Flexbox and Grid, helping you
+                  decide which one is right for your next project.
+                </p>
+                <a href="#" class="read-more-btn">Read More</a>
+              </div>
+            </article>
+            <article class="blog-card">
+              <img src="images/sun.jpg" alt="Blog post image about html5" />
+              <div class="blog-card-content">
+                <h2>A Beginner's Guide to JavaScript Events</h2>
+                <div class="blog-meta">By Emily White | Jul 28, 2025</div>
+                <p>
+                  Learn how to make your web pages interactive with JavaScript
+                  event listeners. We'll cover clicks, keyboard events, and more
+                  with easy-to-follow examples.
+                </p>
+                <a href="#" class="read-more-btn">Read More</a>
+              </div>
+            </article>
+          </div>
         </div>
       </section>
     </main>
-    <footer>
+    <footer class="main-footer">
       <div class="container">
         <h3>Subscribe to Our Newsletter</h3>
         <p>Get the latest tech tips and tutorials delivered to your inbox.</p>
-        <form>
-          <input type="email" name="email" id="email-input">
+        <form class="subscribe-form">
+          <input
+            type="email"
+            name="email"
+            id="email-input"
+            placeholder="Enter your email"
+          />
           <button type="submit">Subscribe</button>
         </form>
-        <div>
-          © 2025 TechInsights. All Rights Reserved. 
+        <div class="copyright">
+          &copy; 2025 TechInsights. All Rights Reserved.
         </div>
       </div>
     </footer>
