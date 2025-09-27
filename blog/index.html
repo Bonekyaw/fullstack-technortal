@@ -21,8 +21,8 @@
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li class="dropdown">
-              <a href="#">Categories</a>
-              <div class="dropdown-content">
+              <a href="#" id="dropdown-toggle">Categories</a>
+              <div class="dropdown-content" id="dropdown-menu">
                 <a href="#">JavaScript</a><a href="#">CSS</a
                 ><a href="#">Web Design</a><a href="#">Tutorials</a>
               </div>
@@ -30,6 +30,11 @@
             <li><a href="#">Contact</a></li>
           </ul>
         </nav>
+        <button class="burger-menu" id="burger-menu">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </button>
       </div>
     </header>
     <main>
@@ -100,5 +105,34 @@
         </div>
       </div>
     </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const dropdowntoggle = document.getElementById("dropdown-toggle");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        dropdowntoggle.addEventListener("click", function (event) {
+          event.preventDefault();
+          event.stopPropagation();
+          dropdownMenu.classList.toggle("show");
+        });
+
+        const burgerMenu = document.getElementById("burger-menu");
+        const mainNav = document.getElementById("main-nav");
+
+        burgerMenu.addEventListener("click", function () {
+          mainNav.classList.toggle("mobile-nav-open");
+        });
+
+        window.addEventListener("click", function (event) {
+          if (
+            !dropdowntoggle.contains(event.target) &&
+            !dropdownMenu.contains(event.target) &&
+            dropdownMenu.classList.contains("show")
+          ) {
+            dropdownMenu.classList.remove("show");
+          }
+        });
+      });
+    </script>
   </body>
 </html>
