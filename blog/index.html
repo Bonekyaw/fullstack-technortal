@@ -16,7 +16,8 @@
     <header class="main-header">
       <div class="container">
         <a href="#" class="logo">TechInsights</a>
-        <nav class="main-nav">
+        <!-- I forgot to add id="main-nav" in nav -->
+        <nav class="main-nav" id="main-nav">
           <ul>
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
@@ -126,8 +127,7 @@
         window.addEventListener("click", function (event) {
           if (
             !dropdowntoggle.contains(event.target) &&
-            !dropdownMenu.contains(event.target) &&
-            dropdownMenu.classList.contains("show")
+            !dropdownMenu.contains(event.target)
           ) {
             dropdownMenu.classList.remove("show");
           }
