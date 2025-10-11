@@ -1,4 +1,4 @@
-import { GalleryVerticalEnd } from "lucide-react";
+import { ShoppingBasket } from "lucide-react";
 
 import { LoginForm } from "@/components/auth/login-form";
 
@@ -9,9 +9,9 @@ export default function LoginPage() {
         <div className="flex justify-center gap-2 md:justify-start">
           <a href="#" className="flex items-center gap-2 font-medium">
             <div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-              <GalleryVerticalEnd className="size-4" />
+              <ShoppingBasket className="size-4" />
             </div>
-            Acme Inc.
+            Furniture Shop
           </a>
         </div>
         <div className="flex flex-1 items-center justify-center">
@@ -22,7 +22,7 @@ export default function LoginPage() {
       </div>
       <div className="bg-muted relative hidden lg:block">
         <img
-          src="/placeholder.svg"
+          src="/house.webp"
           alt="Image"
           className="absolute inset-0 h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
         />
