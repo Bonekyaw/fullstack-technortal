@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -29,49 +30,66 @@ import {
   // FieldLabel,
   // FieldSeparator,
 } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
+import { PasswordInput } from "./password-input";
 
 const formSchema = z.object({
-  phone: z
+  password: z
     .string()
-    .min(7, {
-      message: "Phone number is too short",
+    .min(8, {
+      message: "Password must be 8 digits",
     })
-    .max(12, {
-      message: "Phone number is too long",
+    .max(8, {
+      message: "Password must be 8 digits",
     })
     .regex(/^\d+$/, {
-      message: "Phone number is invalid",
+      message: "Password is invalid",
+    }),
+  confirmPassword: z
+    .string()
+    .min(8, {
+      message: "Password must be 8 digits",
+    })
+    .max(8, {
+      message: "Password must be 8 digits",
+    })
+    .regex(/^\d+$/, {
+      message: "Password is invalid",
     }),
 });
 
-export function RegisterForm({
+export function PasswordForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
+  const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      phone: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    if (values.password !== values.confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
     console.log(values);
     // Calling API
     await new Promise((resolve) => setTimeout(resolve, 2000));
-    navigate("/register/otp");
+    navigate("/");
   }
 
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-          <CardTitle className="text-xl">Welcome to Our Shop</CardTitle>
-          <CardDescription>Feel free to register below.</CardDescription>
+          <CardTitle className="text-xl">Please confirm passwords</CardTitle>
+          <CardDescription>Passwords must be 8 digits long.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -81,16 +99,15 @@ export function RegisterForm({
             >
               <FormField
                 control={form.control}
-                name="phone"
+                name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Phone Number</FormLabel>
+                    <FormLabel>Password</FormLabel>
                     <FormControl>
-                      <Input
-                        type="tel"
+                      <PasswordInput
                         inputMode="numeric"
-                        placeholder="09778**********"
-                        required
+                        // minLength={8}
+                        // maxLength={8}
                         {...field}
                       />
                     </FormControl>
@@ -101,8 +118,30 @@ export function RegisterForm({
                   </FormItem>
                 )}
               />
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <PasswordInput
+                        inputMode="numeric"
+                        // minLength={8}
+                        // maxLength={8}
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                This is your public display name.
+              </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {error && <p className="text-xs text-red-400">{error}</p>}
               <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Registering..." : "Register"}
+                {form.formState.isSubmitting ? "Confirming..." : "Confirm"}
               </Button>
             </form>
           </Form>

@@ -4,6 +4,9 @@ import LoginPage from "@/pages/auth/Login";
 import RootLayout from "@/pages/RootLayout";
 import Error from "./error";
 import RegisterPage from "@/pages/auth/Register";
+import AuthLayout from "@/pages/auth/AuthLayout";
+import OtpPage from "./pages/auth/Otp";
+import ConfirmPasswordPage from "./pages/auth/ConfirmPassword";
 
 export const router = createBrowserRouter([
   {
@@ -18,5 +21,17 @@ export const router = createBrowserRouter([
     ],
   },
   { path: "/login", Component: LoginPage },
-  { path: "/register", Component: RegisterPage },
+  {
+    path: "/register",
+    Component: AuthLayout,
+    children: [
+      { index: true, Component: RegisterPage },
+      { path: "otp", Component: OtpPage },
+      { path: "confirm-password", Component: ConfirmPasswordPage },
+    ],
+  },
 ]);
+
+// /register
+// /register/otp
+// register/confirm-password
