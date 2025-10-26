@@ -1,0 +1,5 @@
+npm init -y
+npm i express
+npm i @types/express --save-dev
+npm i typescript ts-node nodemon @types/node --save-dev
+npx tsc --init

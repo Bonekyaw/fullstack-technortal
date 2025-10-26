@@ -1,0 +1,18 @@
+// const http = require('http');
+
+import http from "http";
+
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { "Content-Type": "text/html" });
+  if (req.url === "/") {
+    res.write("<h1>Hello, World!</h1>");
+    res.end();
+  }
+
+  if (req.url === "/users") {
+    res.write("<h1>Hello, Users!</h1>");
+    res.end();
+  }
+});
+
+server.listen(8080, () => console.log("Server is running at 8080"));
