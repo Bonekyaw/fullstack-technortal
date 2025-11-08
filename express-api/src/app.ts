@@ -1,18 +1,14 @@
 import express from "express";
-
+import routes from "./routes";
 const app = express();
 
-app.get("/", (req, res) => {
-  // res.send("<h1>Hello, World!<h1>");
-  res.status(200).json({ message: "Hello, World!" });
-});
+// app.set("view engine", "ejs");
+// app.set("views", "./src/views");
 
-app.get("/users", (req, res) => {
-  const users = [
-    { id: 1, name: "Alice" },
-    { id: 2, name: "Bob" },
-  ];
-  res.status(200).json({ users });
-});
+app.use(express.json()).use(express.urlencoded({ extended: true }));
+
+app.use(express.static("public"));
+
+app.use(routes);
 
 export default app;

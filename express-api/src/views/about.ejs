@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("includes/head") %>
+  </head>
+  <body>
+    <%- include("includes/nav") %>
+    <h1>About Page</h1>
+    <ul>
+      <% users.forEach(user => { %>
+      <li>Name - <%= user.name %> : Age - <%= user.age %></li>
+      <% }) %>
+    </ul>
+  </body>
+</html>
