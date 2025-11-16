@@ -14,8 +14,47 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Otp {
+  id            Int      @id @default(autoincrement())
+  phone         String   @unique @db.VarChar(15)
+  otp           String
+  rememberToken String
+  verifyToken   String?
+  count         Int      @default(0) @db.SmallInt
+  errorCount    Int      @default(0) @db.SmallInt
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([phone])
+}
+
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id              Int       @id @default(autoincrement())
+  phone           String    @unique @db.VarChar(15)
+  email           String?   @unique @db.VarChar(52)
+  firstName       String?
+  lastName        String?
+  password        String
+  role            Role      @default(USER)
+  status          Status    @default(ACTIVE)
+  lastLogin       DateTime?
+  errorLoginCount Int       @default(0) @db.SmallInt
+  randToken       String
+  image           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([phone])
+}
+
+enum Role {
+  USER
+  PREMIUM
+  ADMIN
+}
+
+enum Status {
+  ACTIVE
+  INACTIVE
+  FREEZE
 }
