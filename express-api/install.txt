@@ -1,5 +1,9 @@
 npm init -y
 npm i express
 npm i @types/express --save-dev
-npm i typescript ts-node nodemon @types/node --save-dev
+npm i typescript tsx ts-node nodemon @types/node --save-dev
 npx tsc --init
+
+*** Prisma Setup
+npm install prisma@6.19.0 tsx --save-dev
+npm install @prisma/client@6.19.0 @prisma/extension-accelerate@2.0.2 dotenv
