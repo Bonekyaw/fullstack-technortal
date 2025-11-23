@@ -1,22 +1,21 @@
-import { PrismaClient, Prisma } from "../src/generated/prisma/client";
+import * as bcrypt from "bcrypt";
+import { PrismaClient } from "../src/generated/prisma/client";
 
 const prisma = new PrismaClient();
 
-const userData: Prisma.UserCreateInput[] = [
-  {
-    name: "Alice",
-    email: "alice@prisma.io",
-  },
-  {
-    name: "Bob",
-    email: "bob@prisma.io",
-  },
-];
-
 export async function main() {
-  for (const u of userData) {
-    await prisma.user.create({ data: u });
-  }
+  console.log("Seeding Start -----");
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash("12345678", salt);
+
+  await prisma.user.create({
+    data: {
+      phone: "778661260",
+      password: hashedPassword,
+      randToken: "12jhgsiufy7ib876873rkj",
+    },
+  });
+  console.log("Seeding Finished ----");
 }
 
 main();

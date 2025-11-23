@@ -3,6 +3,9 @@ npm i express
 npm i @types/express --save-dev
 npm i typescript tsx ts-node nodemon @types/node --save-dev
 npx tsc --init
+npm i bcrypt
+npm i @types/bcrypt --save-dev
+npm i express-validator
 
 *** Prisma Setup
 npm install prisma@6.19.0 tsx --save-dev

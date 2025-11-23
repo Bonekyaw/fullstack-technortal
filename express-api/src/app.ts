@@ -11,4 +11,18 @@ app.use(express.static("public"));
 
 app.use(routes);
 
+app.use(
+  (
+    err: any,
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
+  ) => {
+    const status = err.status || 500;
+    const message = err.message || "Something went wrong";
+    const errorCode = err.code || "INTERNAL_SERVER_ERROR";
+    res.status(status).json({ message, error: errorCode });
+  }
+);
+
 export default app;
