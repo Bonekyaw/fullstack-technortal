@@ -1,11 +1,20 @@
 import express from "express";
 import routes from "./routes";
+import { limiter } from "./middleware/rateLimiter";
+import helmet from "helmet";
+import compression from "compression";
+
 const app = express();
 
 // app.set("view engine", "ejs");
 // app.set("views", "./src/views");
 
-app.use(express.json()).use(express.urlencoded({ extended: true }));
+app
+  .use(express.json())
+  .use(express.urlencoded({ extended: true }))
+  .use(helmet())
+  .use(compression())
+  .use(limiter);
 
 app.use(express.static("public"));
 
