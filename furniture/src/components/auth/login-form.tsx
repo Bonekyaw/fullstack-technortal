@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Link, useNavigate } from "react-router";
+import { Link, useSubmit, useActionData, useNavigation } from "react-router";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -46,7 +46,11 @@ export function LoginForm({
   className,
   ...props
 }: React.ComponentProps<"form">) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const submit = useSubmit();
+  const actionData = useActionData() as { error?: string } | undefined;
+  const navigation = useNavigation();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -58,10 +62,7 @@ export function LoginForm({
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    // Calling API
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    navigate("/");
+    submit(values, { method: "post", action: "/login" });
   }
 
   return (
@@ -129,8 +130,18 @@ export function LoginForm({
               </FormItem>
             )}
           />
-          <Button type="submit" disabled={form.formState.isSubmitting}>
-            {form.formState.isSubmitting ? "Logging in..." : "Login"}
+          {actionData?.error && (
+            <p className="text-sm text-red-600 text-center">
+              {actionData.error}
+            </p>
+          )}
+          <Button
+            type="submit"
+            // disabled={form.formState.isSubmitting}
+            disabled={navigation.state === "submitting"}
+          >
+            {/* {form.formState.isSubmitting ? "Logging in..." : "Login"} */}
+            {navigation.state === "submitting" ? "Logging in..." : "Login"}
           </Button>
         </form>
       </Form>
