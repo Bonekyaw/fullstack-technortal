@@ -3,6 +3,7 @@ import routes from "./routes";
 import { limiter } from "./middleware/rateLimiter";
 import helmet from "helmet";
 import compression from "compression";
+import cors from "cors";
 
 const app = express();
 
@@ -12,6 +13,7 @@ const app = express();
 app
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
+  .use(cors())
   .use(helmet())
   .use(compression())
   .use(limiter);

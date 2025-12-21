@@ -7,5 +7,5 @@ npm i bcrypt
 npm i @types/bcrypt --save-dev
 npm i express-validator
 npm i jsonwebtoken
-npm i @types/jsonwebtoken @types/compression --save-dev
-npm i express-rate-limit helmet compression
+npm i @types/jsonwebtoken @types/compression @types/cors --save-dev
+npm i express-rate-limit helmet compression cors
