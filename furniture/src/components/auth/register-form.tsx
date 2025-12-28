@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useNavigate } from "react-router";
+import { useSubmit, useActionData, useNavigation } from "react-router";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -49,7 +49,11 @@ export function RegisterForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const submit = useSubmit();
+  const actionData = useActionData() as { error?: string } | undefined;
+  const navigation = useNavigation();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -62,8 +66,9 @@ export function RegisterForm({
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
     // Calling API
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    navigate("/register/otp");
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    // navigate("/register/otp");
+    submit(values, { method: "post", action: "." });
   }
 
   return (
@@ -101,8 +106,20 @@ export function RegisterForm({
                   </FormItem>
                 )}
               />
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Registering..." : "Register"}
+              {actionData?.error && (
+                <p className="text-sm text-red-600 text-center">
+                  {actionData.error}
+                </p>
+              )}
+              <Button
+                type="submit"
+                //disabled={form.formState.isSubmitting}
+                disabled={navigation.state === "submitting"}
+              >
+                {/* {form.formState.isSubmitting ? "Registering..." : "Register"} */}
+                {navigation.state === "submitting"
+                  ? "Registering..."
+                  : "Register"}
               </Button>
             </form>
           </Form>

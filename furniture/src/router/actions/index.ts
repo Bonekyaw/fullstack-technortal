@@ -19,3 +19,19 @@ export const loginAction = async ({ request }: ActionFunctionArgs) => {
     }
   }
 };
+
+export const registerAction = async ({ request }: ActionFunctionArgs) => {
+  const formData = await request.formData();
+  const data = Object.fromEntries(formData);
+
+  try {
+    await authAPi.post("/register", data);
+    return redirect("/register/otp");
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      if (error.response) {
+        return { error: `Registration failed: ${error.response.data.message}` };
+      }
+    }
+  }
+};

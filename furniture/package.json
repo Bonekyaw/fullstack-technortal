@@ -18,6 +18,7 @@
     "axios": "^1.13.2",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "immer": "^11.1.0",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.544.0",
     "react": "^19.1.1",
@@ -26,7 +27,8 @@
     "react-router": "^7.9.4",
     "tailwind-merge": "^3.3.1",
     "tailwindcss": "^4.1.14",
-    "zod": "^4.1.12"
+    "zod": "^4.1.12",
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",

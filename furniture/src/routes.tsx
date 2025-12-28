@@ -7,7 +7,7 @@ import RegisterPage from "@/pages/auth/Register";
 import AuthLayout from "@/pages/auth/AuthLayout";
 import OtpPage from "@/pages/auth/Otp";
 import ConfirmPasswordPage from "@/pages/auth/ConfirmPassword";
-import { loginAction } from "@/router/actions";
+import { loginAction, registerAction } from "@/router/actions";
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
     path: "/register",
     Component: AuthLayout,
     children: [
-      { index: true, Component: RegisterPage },
+      { index: true, Component: RegisterPage, action: registerAction },
       { path: "otp", Component: OtpPage },
       { path: "confirm-password", Component: ConfirmPasswordPage },
     ],
