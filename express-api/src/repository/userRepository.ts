@@ -13,6 +13,12 @@ export const updateUserById = async (id: number, data: any) => {
   });
 };
 
+export const createUser = async (data: any) => {
+  return await prisma.user.create({
+    data,
+  });
+};
+
 export const findOtpByPhone = async (phone: string) => {
   return await prisma.otp.findUnique({
     where: { phone },

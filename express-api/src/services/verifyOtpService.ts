@@ -1,3 +1,6 @@
+import moment from "moment";
+import bcrypt from "bcrypt";
+
 import { errorCode } from "../config";
 import {
   findOtpByPhone,
@@ -10,6 +13,7 @@ import {
   checkUserIfExist,
 } from "../utils/check";
 import { createError } from "../utils/error";
+import { generateToken } from "../utils/generate";
 
 export const verifyOtpService = async (
   phone: string,
@@ -34,6 +38,33 @@ export const verifyOtpService = async (
 
     throw createError(400, "Invalid token", errorCode.BAD_REQUEST);
   }
+  // If OTP is expired
+  const isOtpExpired = moment().diff(otpRow?.updatedAt, "minutes") > 3;
+  if (isOtpExpired) {
+    throw createError(403, "OTP has expired", errorCode.OTP_EXPIRED);
+  }
 
   // If OTP is wrong
+  const isOtpValid = await bcrypt.compare(otp, otpRow!.otp);
+  if (!isOtpValid) {
+    if (!isSameDay) {
+      await updateOtpById(otpRow!.id, {
+        errorCount: 1,
+      });
+    } else {
+      await updateOtpById(otpRow!.id, {
+        errorCount: { increment: 1 },
+      });
+    }
+    throw createError(400, "Invalid OTP", errorCode.BAD_REQUEST);
+  }
+
+  // All are OK
+  const verifyToken = generateToken();
+  await updateOtpById(otpRow!.id, {
+    verifyToken,
+    errorCount: 0,
+  });
+
+  return verifyToken;
 };
