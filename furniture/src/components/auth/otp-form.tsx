@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router";
+import { useSubmit, useActionData, useNavigation } from "react-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -27,7 +27,10 @@ const FormSchema = z.object({
 });
 
 export function OtpForm() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const submit = useSubmit();
+  const actionData = useActionData() as { error?: string } | undefined;
+  const navigation = useNavigation();
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -39,8 +42,9 @@ export function OtpForm() {
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data);
     // Calling API
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    navigate("/register/confirm-password");
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    // navigate("/register/confirm-password");
+    submit(data, { method: "POST", action: "/register/otp" });
   }
 
   return (
@@ -77,9 +81,16 @@ export function OtpForm() {
             </FormItem>
           )}
         />
-
-        <Button type="submit" disabled={form.formState.isSubmitting}>
-          {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+        {actionData?.error && (
+          <p className="text-sm text-red-600 text-center">{actionData.error}</p>
+        )}
+        <Button
+          type="submit"
+          // disabled={form.formState.isSubmitting}
+          disabled={navigation.state === "submitting"}
+        >
+          {/* {form.formState.isSubmitting ? "Submitting..." : "Submit"} */}
+          {navigation.state === "submitting" ? "Submitting..." : "Submit"}
         </Button>
       </form>
     </Form>

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useSubmit, useActionData, useNavigation } from "react-router";
+import { useSubmit, useActionData, useNavigation, Link } from "react-router";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -126,8 +126,9 @@ export function RegisterForm({
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <Link to="#">Terms of Service</Link> and{" "}
+        <Link to="#">Privacy Policy</Link>.
       </FieldDescription>
     </div>
   );

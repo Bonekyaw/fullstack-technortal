@@ -2,7 +2,7 @@ import { useState } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useNavigate } from "react-router";
+import { useSubmit, useActionData, useNavigation, Link } from "react-router";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -62,7 +62,11 @@ export function PasswordForm({
   ...props
 }: React.ComponentProps<"div">) {
   const [error, setError] = useState<string | null>(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const submit = useSubmit();
+  const actionData = useActionData() as { error?: string } | undefined;
+  const navigation = useNavigation();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -80,8 +84,10 @@ export function PasswordForm({
     }
     console.log(values);
     // Calling API
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    navigate("/");
+    // await new Promise((resolve) => setTimeout(resolve, 2000));
+    // navigate("/");
+    setError(null);
+    submit(values, { method: "POST", action: "/register/confirm-password" });
   }
 
   return (
@@ -140,16 +146,33 @@ export function PasswordForm({
                 )}
               />
               {error && <p className="text-xs text-red-400">{error}</p>}
-              <Button type="submit" disabled={form.formState.isSubmitting}>
-                {form.formState.isSubmitting ? "Confirming..." : "Confirm"}
+              {actionData?.error && (
+                <div className="flex gap-4">
+                  <p className="text-sm text-red-600 text-center">
+                    {actionData.error}
+                  </p>
+                  <Link to="/register">Go to Sign Up Page</Link>
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                // disabled={form.formState.isSubmitting}
+                disabled={navigation.state === "submitting"}
+              >
+                {/* {form.formState.isSubmitting ? "Confirming..." : "Confirm"} */}
+                {navigation.state === "submitting"
+                  ? "Confirming..."
+                  : "Confirm"}
               </Button>
             </form>
           </Form>
         </CardContent>
       </Card>
       <FieldDescription className="px-6 text-center">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our{" "}
+        <Link to="#">Terms of Service</Link> and{" "}
+        <Link to="#">Privacy Policy</Link>.
       </FieldDescription>
     </div>
   );
