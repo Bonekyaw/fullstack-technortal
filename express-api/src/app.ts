@@ -4,6 +4,7 @@ import { limiter } from "./middleware/rateLimiter";
 import helmet from "helmet";
 import compression from "compression";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 const app = express();
 
@@ -13,6 +14,7 @@ const app = express();
 app
   .use(express.json())
   .use(express.urlencoded({ extended: true }))
+  .use(cookieParser())
   .use(cors())
   .use(helmet())
   .use(compression())
