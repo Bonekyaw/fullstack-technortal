@@ -13,7 +13,11 @@ import {
   registerAction,
   verifyOtpAction,
 } from "@/router/actions";
-import { confirmPasswordLoader, verifyOtpLoader } from "./router/loaders";
+import {
+  confirmPasswordLoader,
+  loginLoader,
+  verifyOtpLoader,
+} from "./router/loaders";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +31,12 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: "/login", Component: LoginPage, action: loginAction },
+  {
+    path: "/login",
+    Component: LoginPage,
+    loader: loginLoader,
+    action: loginAction,
+  },
   {
     path: "/register",
     Component: AuthLayout,
