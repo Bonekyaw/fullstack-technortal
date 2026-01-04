@@ -6,6 +6,12 @@ export const findUserByPhone = async (phone: string) => {
   });
 };
 
+export const findUserById = async (id: number) => {
+  return await prisma.user.findUnique({
+    where: { id },
+  });
+};
+
 export const updateUserById = async (id: number, data: any) => {
   return await prisma.user.update({
     where: { id },

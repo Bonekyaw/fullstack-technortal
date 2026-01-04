@@ -148,3 +148,17 @@ export const confirmPassword = [
     }
   },
 ];
+
+interface CustomRequest extends Request {
+  userId?: number;
+}
+
+export const authCheck = async (
+  req: CustomRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const userId = req.userId;
+
+  res.status(200).json({ message: "You are an authenticated user.", userId });
+};
