@@ -5,6 +5,7 @@ export const authAPi = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
+  withCredentials: true,
 });
 
 export const api = axios.create({

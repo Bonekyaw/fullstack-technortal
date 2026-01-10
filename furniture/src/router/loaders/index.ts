@@ -9,6 +9,7 @@ export const loginLoader = async () => {
     return redirect("/");
   } catch (error) {
     console.error(error);
+    return null;
   }
 };
 
