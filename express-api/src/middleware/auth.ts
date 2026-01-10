@@ -12,6 +12,8 @@ interface CustomRequest extends Request {
 export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   const accessToken = req.cookies ? req.cookies.accessToken : null;
   const refreshToken = req.cookies ? req.cookies.refreshToken : null;
+  console.log("accessToken", accessToken);
+  console.log("refreshToken", refreshToken);
 
   if (!refreshToken) {
     return next(

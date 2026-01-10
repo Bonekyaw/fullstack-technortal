@@ -1,10 +1,11 @@
 import express from "express";
 import authRoutes from "./authRoutes";
 import userRoutes from "./apiRoutes";
+import adminRoutes from "./adminRoute";
 
 const router = express.Router();
 
 router.use("/api/v1", authRoutes); // http://localhost:8080/api/v1/...
 router.use("/api/v1/users", userRoutes); // http://localhost:8080/api/v1/users...
-
+router.use("/api/v1/admins", adminRoutes); // http://localhost:8080/api/v1/admins...
 export default router;
