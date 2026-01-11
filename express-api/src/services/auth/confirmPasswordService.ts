@@ -2,17 +2,17 @@ import moment from "moment";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-import { errorCode } from "../config";
+import { errorCode } from "../../config";
 import {
   createUser,
   findOtpByPhone,
   findUserByPhone,
   updateOtpById,
   updateUserById,
-} from "../repository/userRepository";
-import { checkOtpIfNotExist, checkUserIfExist } from "../utils/check";
-import { createError } from "../utils/error";
-import { generateToken } from "../utils/generate";
+} from "../../repository/userRepository";
+import { checkOtpIfNotExist, checkUserIfExist } from "../../utils/check";
+import { createError } from "../../utils/error";
+import { generateToken } from "../../utils/generate";
 
 export const confirmPasswordService = async (
   phone: string,

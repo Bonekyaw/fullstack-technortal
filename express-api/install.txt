@@ -9,3 +9,4 @@ npm i express-validator
 npm i jsonwebtoken
 npm i @types/jsonwebtoken @types/compression @types/cors @types/cookie-parser --save-dev
 npm i express-rate-limit helmet compression cors cookie-parser
+npm i sharp bullmq 

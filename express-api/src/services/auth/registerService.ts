@@ -5,11 +5,11 @@ import {
   findOtpByPhone,
   findUserByPhone,
   updateOtpById,
-} from "../repository/userRepository";
-import { checkOtpErrorIfSameDay, checkUserIfExist } from "../utils/check";
-import { generateToken } from "../utils/generate";
-import { createError } from "../utils/error";
-import { errorCode } from "../config";
+} from "../../repository/userRepository";
+import { checkOtpErrorIfSameDay, checkUserIfExist } from "../../utils/check";
+import { generateToken } from "../../utils/generate";
+import { createError } from "../../utils/error";
+import { errorCode } from "../../config";
 
 export const registerService = async (phone: string) => {
   if (phone.startsWith("09")) {

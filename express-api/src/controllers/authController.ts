@@ -2,10 +2,10 @@ import { Request, Response, NextFunction } from "express";
 import { body, validationResult } from "express-validator";
 import { createError } from "../utils/error";
 import { errorCode } from "../config";
-import { loginService } from "../services/loginService";
-import { registerService } from "../services/registerService";
+import { loginService } from "../services/auth/loginService";
+import { registerService } from "../services/auth/registerService";
 import { verifyOtpService } from "../services/verifyOtpService";
-import { confirmPasswordService } from "../services/confirmPasswordService";
+import { confirmPasswordService } from "../services/auth/confirmPasswordService";
 
 export const login = [
   body("phone", "Invalid Phone Number")

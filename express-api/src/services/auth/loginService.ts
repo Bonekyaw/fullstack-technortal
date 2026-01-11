@@ -1,8 +1,11 @@
 import { check } from "express-validator";
-import { findUserByPhone, updateUserById } from "../repository/userRepository";
-import { checkUserIfNotExist } from "../utils/check";
-import { createError } from "../utils/error";
-import { errorCode } from "../config";
+import {
+  findUserByPhone,
+  updateUserById,
+} from "../../repository/userRepository";
+import { checkUserIfNotExist } from "../../utils/check";
+import { createError } from "../../utils/error";
+import { errorCode } from "../../config";
 import * as bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
