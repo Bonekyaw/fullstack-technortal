@@ -1,24 +1,24 @@
 import moment from "moment";
 import bcrypt from "bcrypt";
 
-import { errorCode } from "../config";
+import { errorCode } from "../../config";
 import {
   findOtpByPhone,
   findUserByPhone,
   updateOtpById,
-} from "../repository/userRepository";
+} from "../../repository/userRepository";
 import {
   checkOtpErrorIfSameDay,
   checkOtpIfNotExist,
   checkUserIfExist,
-} from "../utils/check";
-import { createError } from "../utils/error";
-import { generateToken } from "../utils/generate";
+} from "../../utils/check";
+import { createError } from "../../utils/error";
+import { generateToken } from "../../utils/generate";
 
 export const verifyOtpService = async (
   phone: string,
   otp: string,
-  token: string
+  token: string,
 ) => {
   const user = await findUserByPhone(phone);
   checkUserIfExist(user);

@@ -12,16 +12,16 @@ interface CustomRequest extends Request {
 export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
   const accessToken = req.cookies ? req.cookies.accessToken : null;
   const refreshToken = req.cookies ? req.cookies.refreshToken : null;
-  console.log("accessToken", accessToken);
-  console.log("refreshToken", refreshToken);
+  // console.log("accessToken", accessToken);
+  // console.log("refreshToken", refreshToken);
 
   if (!refreshToken) {
     return next(
       createError(
         401,
         "You are not an authenticated user. 1",
-        errorCode.UNAUTHENTICATED
-      )
+        errorCode.UNAUTHENTICATED,
+      ),
     );
   }
 
@@ -37,8 +37,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
         createError(
           401,
           "You are not an authenticated user. 2",
-          errorCode.UNAUTHENTICATED
-        )
+          errorCode.UNAUTHENTICATED,
+        ),
       );
     }
 
@@ -47,8 +47,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
         createError(
           401,
           "You are not an authenticated user. 3",
-          errorCode.UNAUTHENTICATED
-        )
+          errorCode.UNAUTHENTICATED,
+        ),
       );
     }
 
@@ -58,8 +58,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
         createError(
           401,
           "This account has not registered yet. 4",
-          errorCode.UNAUTHENTICATED
-        )
+          errorCode.UNAUTHENTICATED,
+        ),
       );
     }
 
@@ -68,8 +68,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
         createError(
           401,
           "You are not an authenticated user. 5",
-          errorCode.UNAUTHENTICATED
-        )
+          errorCode.UNAUTHENTICATED,
+        ),
       );
     }
 
@@ -78,21 +78,21 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
         createError(
           401,
           "You are not an authenticated user. 7",
-          errorCode.UNAUTHENTICATED
-        )
+          errorCode.UNAUTHENTICATED,
+        ),
       );
     }
 
     const newAccessToken = jwt.sign(
       { id: user.id },
       process.env.ACCESS_TOKEN_SECRET!,
-      { expiresIn: 60 * 10 } // 10 mins
+      { expiresIn: 60 * 10 }, // 10 mins
     );
 
     const newRefreshToken = jwt.sign(
       { id: user.id, phone: user.phone },
       process.env.REFRESH_TOKEN_SECRET!,
-      { expiresIn: "30d" } // 30 days
+      { expiresIn: "30d" }, // 30 days
     );
 
     await updateUserById(user.id, { randToken: newRefreshToken });
@@ -130,8 +130,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
           createError(
             401,
             "You are not an authenticated user. 8",
-            errorCode.UNAUTHENTICATED
-          )
+            errorCode.UNAUTHENTICATED,
+          ),
         );
       }
 
@@ -146,8 +146,8 @@ export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
           createError(
             401,
             "You are not an authenticated user. 9",
-            errorCode.UNAUTHENTICATED
-          )
+            errorCode.UNAUTHENTICATED,
+          ),
         );
       }
     }

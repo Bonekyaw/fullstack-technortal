@@ -4,8 +4,9 @@ import { createError } from "../utils/error";
 import { errorCode } from "../config";
 import { loginService } from "../services/auth/loginService";
 import { registerService } from "../services/auth/registerService";
-import { verifyOtpService } from "../services/verifyOtpService";
+import { verifyOtpService } from "../services/auth/verifyOtpService";
 import { confirmPasswordService } from "../services/auth/confirmPasswordService";
+import { logoutService } from "../services/auth/logoutService";
 
 export const login = [
   body("phone", "Invalid Phone Number")
@@ -26,7 +27,7 @@ export const login = [
       const { phone, password } = req.body;
       const { accessToken, refreshToken, userId } = await loginService(
         phone,
-        password
+        password,
       );
       res
         .cookie("accessToken", accessToken, {
@@ -156,9 +157,43 @@ interface CustomRequest extends Request {
 export const authCheck = async (
   req: CustomRequest,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const userId = req.userId;
 
   res.status(200).json({ message: "You are an authenticated user.", userId });
+};
+
+export const logout = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
+  const refreshToken = req.cookies ? req.cookies.refreshToken : null;
+  if (!refreshToken) {
+    return next(
+      createError(
+        401,
+        "You are not an authenticated user!.",
+        errorCode.UNAUTHENTICATED,
+      ),
+    );
+  }
+
+  await logoutService(refreshToken);
+
+  res.clearCookie("accessToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    path: "/",
+  });
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    path: "/",
+  });
+
+  res.status(200).json({ message: "Successfully logged out. See you soon." });
 };

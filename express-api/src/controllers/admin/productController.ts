@@ -4,6 +4,7 @@ import { createError } from "../../utils/error";
 import { errorCode } from "../../config";
 import { removeFiles } from "../../utils/removeFile";
 import { findUserById } from "../../repository/userRepository";
+import { productCreateService } from "../../services/product/productCreateService";
 
 interface CustomRequest extends Request {
   userId?: number;
@@ -35,7 +36,7 @@ export const createProduct = [
 
     if (req.files && req.files.length === 0) {
       return next(
-        createError(400, "Image is required", errorCode.VALIDATION_ERROR)
+        createError(400, "Image is required", errorCode.VALIDATION_ERROR),
       );
     }
 
@@ -47,7 +48,7 @@ export const createProduct = [
       await removeFiles(originalFileNames, null);
 
       return next(
-        createError(403, "This action is not allowed.", errorCode.UNAUTHORIZED)
+        createError(403, "This action is not allowed.", errorCode.UNAUTHORIZED),
       );
     }
 
@@ -55,6 +56,20 @@ export const createProduct = [
       req.body;
     const files = req.files;
 
-    res.status(201).json({ message: "Successfully created a new product." });
+    const productId = await productCreateService({
+      name,
+      description,
+      price,
+      discount,
+      inventory,
+      category,
+      type,
+      files,
+    });
+
+    res.status(201).json({
+      message: "Successfully created a new product.",
+      productId,
+    });
   },
 ];
