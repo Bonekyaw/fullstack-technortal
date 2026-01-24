@@ -15,6 +15,7 @@ import {
 } from "@/router/actions";
 import {
   confirmPasswordLoader,
+  homeLoader,
   loginLoader,
   verifyOtpLoader,
 } from "./router/loaders";
@@ -28,6 +29,7 @@ export const router = createBrowserRouter([
       {
         index: true,
         Component: HomePage,
+        loader: homeLoader,
       },
     ],
   },
