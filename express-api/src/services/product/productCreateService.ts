@@ -14,6 +14,7 @@ type ProductProps = {
   type: string;
   files: any;
 };
+
 export const productCreateService = async (product: ProductProps) => {
   const {
     name,
@@ -37,7 +38,7 @@ export const productCreateService = async (product: ProductProps) => {
           fileName: `${splitFileName}.webp`,
           width: 835,
           height: 577,
-          quality: 100,
+          quality: 70,
         },
         {
           attempts: 3,

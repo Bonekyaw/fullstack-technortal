@@ -33,7 +33,7 @@ export const getProductsService = async (params: GetProductProps) => {
 
   const where = {
     AND: [
-      categoryList.length > 0 ? { categoryId: { in: categoryList } } : {},
+      categoryList.length > 0 ? { categoryId: { in: categoryList } } : {}, // [1,2,3]
       typeList.length > 0 ? { typeId: { in: typeList } } : {},
     ],
   };
@@ -63,7 +63,7 @@ export const getProductsService = async (params: GetProductProps) => {
     },
   };
 
-  const cacheKey = `products:${JSON.stringify(query)}`;
+  const cacheKey = `products:${JSON.stringify(query)}`; // "products:{"limit":5,"category":"1,2","type":"3"}"
   const products = await getOrSetCache(cacheKey, async () => {
     return await getProductsList(options);
   });

@@ -1,7 +1,6 @@
 import { Request, Response, NextFunction } from "express";
-import { body, query, param, validationResult } from "express-validator";
+import { query, validationResult } from "express-validator";
 
-import { cacheQueue } from "../../jobs/queues/cacheQueue";
 import { createError } from "../../utils/error";
 import { errorCode } from "../../config";
 import { getProductsService } from "../../services/product/productService";
@@ -19,6 +18,8 @@ export const getProductsByPagination = [
   query("limit", "Limit number must be unsigned integer.")
     .isInt({ gt: 3 })
     .optional(),
+  query("category", "Category must be string.").isString().optional(),
+  query("type", "Type must be string.").isString().optional(),
   async (req: CustomRequest, res: Response, next: NextFunction) => {
     const errors = validationResult(req).array({ onlyFirstError: true });
     // If validation error occurs

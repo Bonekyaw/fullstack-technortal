@@ -11,3 +11,5 @@ npm i @types/jsonwebtoken @types/compression @types/cors @types/cookie-parser --
 npm i express-rate-limit helmet compression cors cookie-parser
 npm i sharp bullmq 
 npm i npm-run-all --save-dev
+
+*** Install Prisma ORM

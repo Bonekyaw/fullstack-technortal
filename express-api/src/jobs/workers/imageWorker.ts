@@ -14,6 +14,7 @@ const imageWorker = new Worker(
       "/upload/optimize",
       fileName,
     );
+
     await sharp(filePath)
       .resize(width, height)
       .webp({ quality: quality })

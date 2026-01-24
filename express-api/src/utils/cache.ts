@@ -8,7 +8,7 @@ export const redis = new Redis({
 
 export const getOrSetCache = async (key: any, cb: any) => {
   try {
-    const cachedData = await redis.get(key);
+    const cachedData = await redis.get(key); // "products:{"limit":5,"category":"1,2","type":"3"}"
     if (cachedData) {
       console.log("Cache hit");
       return JSON.parse(cachedData);
