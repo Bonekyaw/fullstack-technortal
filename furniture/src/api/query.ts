@@ -5,7 +5,14 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 5 * 60 * 1000, // 5 min
-      // retry: 2,
+      gcTime: 10 * 60 * 1000, // 10 min (cache time)
+      retry: (failureCount, error: any) => {
+        // Don't retry on 429 (handled by axios interceptor) or 4xx errors
+        if (error?.response?.status === 429) return false;
+        if (error?.response?.status >= 400 && error?.response?.status < 500) return false;
+        return failureCount < 2;
+      },
+      refetchOnWindowFocus: false, // Prevent refetch on tab focus
     },
   },
 });
