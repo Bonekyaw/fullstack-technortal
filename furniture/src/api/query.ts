@@ -11,7 +11,7 @@ export const queryClient = new QueryClient({
 });
 
 const fetchProducts = (q?: string) =>
-  api.get(`/products${q ?? ""}`).then((res) => res.data);
+  api.get(`/users/products${q ?? ""}`).then((res) => res.data);
 
 export const productQuery = (q?: string) => ({
   queryKey: ["products", q],
@@ -19,7 +19,7 @@ export const productQuery = (q?: string) => ({
 });
 
 const fetchCategoryType = async () =>
-  api.get("/filter-type").then((res) => res.data);
+  api.get("/users/filter-type").then((res) => res.data);
 
 export const categoryTypeQuery = () => ({
   queryKey: ["category", "type"],
@@ -38,7 +38,7 @@ const fetchInfiniteProducts = async ({
   let query = pageParam ? `?limit=9&cursor=${pageParam}` : "?limit=9";
   if (categories) query += `&category=${categories}`;
   if (types) query += `&type=${types}`;
-  const response = await api.get(`/products${query}`);
+  const response = await api.get(`/users/products${query}`);
   return response.data;
 };
 
@@ -62,7 +62,7 @@ export const productInfiniteQuery = (
 });
 
 const fetchOneProduct = async (id: number) => {
-  const product = await api.get(`/products/${id}`);
+  const product = await api.get(`/users/products/${id}`);
   if (!product) {
     throw new Response("", {
       status: 404,

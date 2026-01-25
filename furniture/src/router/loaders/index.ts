@@ -6,13 +6,13 @@ import { productQuery, queryClient } from "@/api/query";
 
 // export const homeLoader = async () => {
 //   try {
-//     const products = await api.get("users/products?limit=8");
-//     const posts = await api.get("users/posts/infinite?limit=3");
+//     // const products = await api.get("users/products?limit=8");
+//     // const posts = await api.get("users/posts/infinite?limit=3");
 
-//     // const [products, posts] = await Promise.all([
-//     //   api.get("users/products?limit=8"),
-//     //   api.get("users/posts/infinite?limit=3"),
-//     // ]);
+//     const [products, posts] = await Promise.all([
+//       api.get("users/products?limit=8"),
+//       api.get("users/posts/infinite?limit=3"),
+//     ]);
 
 //     return { productsData: products.data, postsData: posts.data };
 //   } catch (error) {

@@ -15,7 +15,7 @@ var whitelist = ["http://example1.com", "http://localhost:5173"];
 var corsOptions = {
   origin: function (
     origin: any,
-    callback: (err: Error | null, origin?: any) => void
+    callback: (err: Error | null, origin?: any) => void,
   ) {
     if (!origin) return callback(null, true);
     if (whitelist.includes(origin)) {
@@ -42,6 +42,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static("public"));
+app.use(express.static("upload"));
 
 app.use(routes);
 
@@ -50,13 +51,13 @@ app.use(
     err: any,
     req: express.Request,
     res: express.Response,
-    next: express.NextFunction
+    next: express.NextFunction,
   ) => {
     const status = err.status || 500;
     const message = err.message || "Something went wrong";
     const errorCode = err.code || "INTERNAL_SERVER_ERROR";
     res.status(status).json({ message, error: errorCode });
-  }
+  },
 );
 
 export default app;

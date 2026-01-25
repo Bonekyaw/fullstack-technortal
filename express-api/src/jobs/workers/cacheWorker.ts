@@ -33,7 +33,7 @@ caheWorker.on("failed", (job: any, err) => {
 const invalidateCache = async (pattern: string) => {
   try {
     const stream = redis.scanStream({
-      match: pattern,
+      match: pattern, // "products:*"
       count: 100,
     });
 
